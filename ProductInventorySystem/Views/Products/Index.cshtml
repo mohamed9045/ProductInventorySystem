@@ -1,0 +1,81 @@
+﻿@model List<ProductInventorySystem.BLL.ViewModels.ProductListViewModel>
+
+@{
+    ViewData["Title"] = "Products";
+}
+
+<div class="container mt-4">
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2>Products Inventory</h2>
+
+        <a asp-action="Create" class="btn btn-primary">
+            Add New Product
+        </a>
+    </div>
+
+    <table class="table table-bordered table-striped">
+
+        <thead class="table-dark">
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>SKU</th>
+                <th>Price</th>
+                <th>Stock</th>
+                <th>Category</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+
+        <tbody>
+
+            @foreach (var product in Model)
+            {
+                <tr>
+                    <td>@product.Id</td>
+                    <td>@product.Name</td>
+                    <td>@product.SKU</td>
+                    <td>@product.Price</td>
+                    <td>@product.StockQuantity</td>
+                    <td>@product.Category</td>
+
+                    <td>
+                        @(product.IsActive ? "Active" : "Inactive")
+                    </td>
+
+                    <td>
+                        <a asp-action="Details"
+                           asp-route-id="@product.Id"
+                           class="btn btn-info btn-sm">
+                            Details
+                        </a>
+
+                        <a asp-action="Edit"
+                           asp-route-id="@product.Id"
+                           class="btn btn-warning btn-sm">
+                            Edit
+                        </a>
+
+                        <a asp-action="Delete"
+                           asp-route-id="@product.Id"
+                           class="btn btn-danger btn-sm">
+                            Delete
+                        </a>
+                    </td>
+                </tr>
+            }
+
+        </tbody>
+
+    </table>
+
+    @if (!Model.Any())
+    {
+        <div class="alert alert-info">
+            No products found. Start by adding your first product.
+        </div>
+    }
+
+</div>
